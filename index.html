@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INDICON HEALTHCARE PVT. LTD. — Pharmaceutical Company</title>
+  <meta name="description" content="Indicon Healthcare Pvt. Ltd. — Advancing healthcare through innovative pharmaceutical solutions. CNS, Nephroscience, Nutrition divisions.">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── HOME-SPECIFIC ── */
+
+    /* Hero Slider */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .slide.active { opacity: 1; }
+    .slide-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.35);
+    }
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(10,22,40,0.9) 40%, rgba(10,22,40,0.3) 100%);
+    }
+    .slide-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 90%;
+      max-width: 760px;
+      text-align: center;
+      color: var(--white);
+      padding: 0 20px;
+    }
+    .slide-content .label { margin-bottom: 20px; }
+    .slide-content h1 { color: var(--white); margin-bottom: 24px; }
+    .slide-content h1 em { color: var(--gold-light); font-style: italic; }
+    .slide-content p { font-size: 1.12rem; color: rgba(255,255,255,0.72); margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .slide-content .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* Slider controls */
+    .slider-controls {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    .dot {
+      width: 28px; height: 3px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background var(--transition), width var(--transition);
+    }
+    .dot.active { background: var(--gold); width: 48px; }
+    .slider-arrows {
+      position: absolute;
+      bottom: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px;
+      z-index: 10;
+    }
+    .arrow-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .arrow-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+
+    /* About strip */
+    .about-strip { padding: 100px 0; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      border-radius: var(--radius);
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      background: var(--navy);
+      color: var(--white);
+      padding: 28px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 16px 40px rgba(10,22,40,0.2);
+      text-align: center;
+    }
+    .about-badge .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold);
+    }
+    .about-badge small { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; display: block; margin-top: 4px; }
+    .about-content .label { margin-bottom: 14px; }
+    .about-content h2 { margin-bottom: 10px; }
+    .about-content > p { margin-bottom: 32px; }
+    .values-list { margin-bottom: 36px; }
+    .values-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--off-white);
+    }
+    .values-list li:first-child { border-top: 1px solid var(--off-white); }
+    .val-icon {
+      width: 36px; height: 36px; min-width: 36px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 0.9rem;
+    }
+    .val-text strong { display: block; font-size: 0.92rem; font-weight: 600; margin-bottom: 2px; color: var(--text); }
+    .val-text span { font-size: 0.85rem; color: var(--muted); }
+
+    /* 24/7 Banner */
+    .emergency-banner {
+      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-soft) 100%);
+      padding: 70px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .emergency-banner::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%);
+    }
+    .emergency-inner {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+    }
+    .emergency-icon {
+      width: 100px; height: 100px; min-width: 100px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem;
+    }
+    .emergency-text h3 { color: var(--white); margin-bottom: 10px; }
+    .emergency-text p { color: rgba(255,255,255,0.62); max-width: 520px; }
+    .emergency-stat {
+      margin-left: auto;
+      text-align: center;
+      padding: 20px 40px;
+      border-left: 1px solid var(--border);
+    }
+    .emergency-stat .big { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; font-weight: 300; color: var(--gold); line-height: 1; }
+    .emergency-stat small { font-size: 0.76rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* Divisions */
+    .divisions-section { padding: 100px 0; background: var(--off-white); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header .label { margin-bottom: 14px; }
+    .section-header h2 { margin-bottom: 14px; }
+    .section-header p { max-width: 540px; margin: 0 auto; }
+    .divisions-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
+    }
+    .div-card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--off-white);
+      transition: var(--transition);
+      position: relative;
+    }
+    .div-card:hover { transform: translateY(-8px); box-shadow: 0 24px 64px rgba(10,22,40,0.13); }
+    .div-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .div-card:hover .div-card-img { transform: scale(1.04); }
+    .div-card-body { padding: 24px 22px 28px; }
+    .div-tag { font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .div-card-body h3 { font-size: 1.3rem; margin-bottom: 10px; }
+    .div-card-body p { font-size: 0.86rem; color: var(--muted); line-height: 1.7; }
+    .div-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+      transition: color var(--transition), gap var(--transition);
+    }
+    .div-card-link:hover { color: var(--gold); gap: 10px; }
+
+    /* Testimonials */
+    .testimonials { padding: 100px 0; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .testi-card {
+      padding: 40px;
+      border: 1px solid var(--off-white);
+      border-radius: var(--radius);
+      background: #fff;
+      position: relative;
+      transition: var(--transition);
+    }
+    .testi-card:hover { box-shadow: 0 16px 48px rgba(10,22,40,0.08); border-color: rgba(201,168,76,0.3); }
+    .testi-quote { font-size: 3rem; line-height: 1; color: var(--gold); font-family: 'Cormorant Garamond', serif; margin-bottom: 16px; }
+    .testi-card p { font-size: 0.94rem; color: #4a5878; line-height: 1.85; margin-bottom: 28px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .testi-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy-soft));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-weight: 600; font-size: 1.1rem;
+    }
+    .testi-name { font-weight: 600; font-size: 0.9rem; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: var(--navy);
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.14) 0%, transparent 65%);
+    }
+    .cta-banner .container { position: relative; }
+    .cta-banner h2 { color: var(--white); margin-bottom: 14px; }
+    .cta-banner p { color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto 36px; }
+    .cta-banner .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) { .divisions-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img-wrap img { height: 360px; }
+      .about-badge { right: 0; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .emergency-inner { flex-direction: column; gap: 30px; }
+      .emergency-stat { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-left: 0; }
+      .hero { height: auto; min-height: 100svh; }
+      .slider-arrows { display: none; }
+    }
+    @media(max-width:560px) { .divisions-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:info@indiconhealthcare.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        info@indiconhealthcare.com
+      </a>
+      <div class="topbar-right">
+        <a href="https://indiconworld.com" target="_blank">indiconworld.com</a>
+        <span class="unit-tag">A Unit of Indicon World</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="https://indiconhealthcare.com/images/logo.png" alt="Indicon Healthcare Logo" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="divisions.html">Divisions</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SLIDER -->
+  <section class="hero" aria-label="Hero">
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <img class="slide-img" src="https://indiconhealthcare.com/images/healthcare-slider.webp" alt="Healthcare slide 1" />
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <p class="label">Indicon Healthcare Pvt. Ltd.</p>
+        <h1>Let's Create a<br /><em>Healthy World</em></h1>
+        <p>We believe in bridging the gap between patients and doctors through innovative pharmaceutical solutions.</p>
+        <div class="hero-btns">
+          <a href="about.html" class="btn btn-primary">Discover Our Story</a>
+          <a href="divisions.html" class="btn btn-outline">Our Divisions</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="slide">
+      <img class="slide-img" src="https://indiconhealthcare.com/images/healthcare-slider2.webp" alt="Healthcare slide 2" />
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <p class="label">Happiness &amp; Wellbeing</p>
+        <h1>Happiness Is the Key to a<br /><em>Better Life</em></h1>
+        <p>Our genuine commitment to wellbeing drives every product we develop and every community we serve.</p>
+        <div class="hero-btns">
+          <a href="about.html" class="btn btn-primary">Our Vision</a>
+          <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="slide">
+      <img class="slide-img" src="https://indiconhealthcare.com/images/healthcare-slider3.webp" alt="Healthcare slide 3" />
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <p class="label">Care That Makes a Difference</p>
+        <h1>Quality Medicines,<br /><em>Trusted by Many</em></h1>
+        <p>Our genuine motto is 'Care that makes a difference' — delivering pharmaceuticals that meet the highest standards.</p>
+        <div class="hero-btns">
+          <a href="divisions.html" class="btn btn-primary">Explore Products</a>
+          <a href="contact.html" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="slider-arrows">
+      <button class="arrow-btn" onclick="prevSlide()" aria-label="Previous">&#8592;</button>
+      <button class="arrow-btn" onclick="nextSlide()" aria-label="Next">&#8594;</button>
+    </div>
+    <div class="slider-controls">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stat-item">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Product Divisions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Quality Assured</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Emergency Support</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Commitment to Care</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-strip section-pad">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap fade-up">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80" alt="Pharmaceutical research" />
+          <div class="about-badge">
+            <div class="num">2025</div>
+            <small>Est. Year</small>
+          </div>
+        </div>
+        <div class="about-content fade-up">
+          <p class="label">Who We Are</p>
+          <h2>Advancing Healthcare Through <em>Innovation</em></h2>
+          <div class="gold-line"></div>
+          <p>At Indicon Healthcare, we are dedicated to advancing healthcare through innovative pharmaceutical solutions. We have consistently strived to improve lives by developing and delivering high-quality medications that make a difference.</p>
+          <p style="margin-top:14px;">Our vision is to provide accessible and effective healthcare solutions that enhance the well-being of individuals and communities worldwide.</p>
+          <ul class="values-list" style="margin-top:28px;">
+            <li>
+              <div class="val-icon">✦</div>
+              <div class="val-text"><strong>Quality</strong><span>Unwavering standards across research, manufacturing and distribution.</span></div>
+            </li>
+            <li>
+              <div class="val-icon">⬡</div>
+              <div class="val-text"><strong>Innovation</strong><span>Pioneering technologies to address healthcare challenges continuously.</span></div>
+            </li>
+            <li>
+              <div class="val-icon">◈</div>
+              <div class="val-text"><strong>Integrity</strong><span>Highest ethical standards in all our interactions and decisions.</span></div>
+            </li>
+            <li>
+              <div class="val-icon">◎</div>
+              <div class="val-text"><strong>Patient-Centric</strong><span>Patient needs and well-being are our topmost priority.</span></div>
+            </li>
+          </ul>
+          <a href="about.html" class="btn btn-dark">Read Our Full Story &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 24/7 EMERGENCY BANNER -->
+  <div class="emergency-banner">
+    <div class="container">
+      <div class="emergency-inner">
+        <div class="emergency-icon">🏥</div>
+        <div class="emergency-text">
+          <h3 style="color:var(--white);">Emergency Medical Care 24/7</h3>
+          <p>With access to 24-hour emergency assistance, it's so important you can continue to help others. Indicon Healthcare is committed to being there when it matters most.</p>
+        </div>
+        <div class="emergency-stat">
+          <div class="big">24/7</div>
+          <small>Always Available</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVISIONS SECTION -->
+  <section class="divisions-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">Our Portfolio</p>
+        <h2>Product <em>Divisions</em></h2>
+        <div class="gold-line" style="margin:14px auto 20px;"></div>
+        <p>We provide a wide range of product divisions including CNS, Nephroscience, Nutrition and General Medicine — engineered to the highest pharmaceutical standards.</p>
+      </div>
+      <div class="divisions-grid">
+        <div class="div-card fade-up">
+          <img class="div-card-img" src="https://indiconhealthcare.com/images/Products/cns.webp" alt="CNS Division" />
+          <div class="div-card-body">
+            <div class="div-tag">Division 01</div>
+            <h3>CNS</h3>
+            <p>Central Nervous System therapies targeting neurological conditions with precision-engineered formulations.</p>
+            <a href="divisions.html" class="div-card-link">Explore &#8594;</a>
+          </div>
+        </div>
+        <div class="div-card fade-up">
+          <img class="div-card-img" src="https://indiconhealthcare.com/images/Products/nephro.webp" alt="Nephroscience Division" />
+          <div class="div-card-body">
+            <div class="div-tag">Division 02</div>
+            <h3>Nephroscience</h3>
+            <p>Dedicated renal care solutions supporting kidney health and restoring quality of life for patients.</p>
+            <a href="divisions.html" class="div-card-link">Explore &#8594;</a>
+          </div>
+        </div>
+        <div class="div-card fade-up">
+          <img class="div-card-img" src="https://indiconhealthcare.com/images/Products/nutrition.webp" alt="Nutrition Division" />
+          <div class="div-card-body">
+            <div class="div-tag">Division 03</div>
+            <h3>Nutritions</h3>
+            <p>Science-backed nutritional products promoting wellness, immunity and optimal body function.</p>
+            <a href="divisions.html" class="div-card-link">Explore &#8594;</a>
+          </div>
+        </div>
+        <div class="div-card fade-up">
+          <img class="div-card-img" src="https://indiconhealthcare.com/images/Products/medicine.webp" alt="General Medicine Division" />
+          <div class="div-card-body">
+            <div class="div-tag">Division 04</div>
+            <h3>General Medicine</h3>
+            <p>A broad range of essential medicines covering acute and chronic conditions across all age groups.</p>
+            <a href="divisions.html" class="div-card-link">Explore &#8594;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">Testimonials</p>
+        <h2>What Our <em>Clients Say</em></h2>
+        <div class="gold-line" style="margin:14px auto 0;"></div>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card fade-up">
+          <div class="testi-quote">"</div>
+          <p>Indicon Healthcare's products have genuinely made a difference in my patients' treatment outcomes. The quality and consistency of their medications is outstanding and trustworthy.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">A</div>
+            <div>
+              <div class="testi-name">Akshay H.</div>
+              <div class="testi-role">Healthcare Professional</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card fade-up">
+          <div class="testi-quote">"</div>
+          <p>The dedication to patient well-being that Indicon Healthcare demonstrates sets them apart. Their Nephroscience division has provided solutions that truly improve quality of life.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">P</div>
+            <div>
+              <div class="testi-name">Dr. Priya S.</div>
+              <div class="testi-role">Nephrologist</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="container">
+      <p class="label" style="color:var(--gold-light);margin-bottom:16px;">Your Family's Health Matters</p>
+      <h2>Need to Take Care of<br /><em style="color:var(--gold-light);">Your Family's Health?</em></h2>
+      <p>Partner with Indicon Healthcare for accessible, high-quality pharmaceutical solutions trusted by healthcare professionals.</p>
+      <div class="cta-btns">
+        <a href="divisions.html" class="btn btn-primary">View All Divisions</a>
+        <a href="contact.html" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://indiconhealthcare.com/images/logo.png" alt="Indicon Healthcare" />
+          <p>Advancing healthcare through innovative pharmaceutical solutions. A unit of Indicon World.</p>
+          <address>
+            INDICON HEALTHCARE PVT. LTD.<br />
+            From the house of Indicon World<br />
+            H.O - H.No. 402, A. B. Road, Kishanganj,<br />
+            Indore (M.P) 453441, INDIA
+          </address>
+          <div style="margin-top:16px;">
+            <div class="footer-newsletter">
+              <p>Sign up for our newsletter</p>
+              <div class="newsletter-form">
+                <input type="email" placeholder="Your email address" />
+                <button>Subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="divisions.html">Divisions</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Opening Hours</h4>
+          <div class="footer-hours">
+            <span class="day">Monday</span><span>10:00 – 20:00</span>
+            <span class="day">Tuesday</span><span>10:00 – 20:00</span>
+            <span class="day">Wednesday</span><span>10:00 – 20:00</span>
+            <span class="day">Thursday</span><span>10:00 – 20:00</span>
+            <span class="day">Friday</span><span>10:00 – 20:00</span>
+            <span class="day">Saturday</span><span>10:00 – 20:00</span>
+            <span class="day">Sunday</span><span>10:00 – 20:00</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@indiconhealthcare.com">info@indiconhealthcare.com</a></li>
+            <li><a href="https://indiconworld.com" target="_blank">indiconworld.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© Copyright 2025 INDICON HEALTHCARE PVT. LTD. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Slider
+    let cur = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    function goSlide(n) {
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur = (n + slides.length) % slides.length;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+    }
+    function nextSlide() { goSlide(cur + 1); }
+    function prevSlide() { goSlide(cur - 1); }
+    setInterval(nextSlide, 5000);
+
+    // Nav toggle
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Scroll animations
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

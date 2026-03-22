@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — INDICON HEALTHCARE PVT. LTD.</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── ABOUT PAGE ── */
+    .about-intro { padding: 100px 0; }
+    .about-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-intro-img {
+      position: relative;
+    }
+    .about-intro-img img {
+      width: 100%; height: 520px;
+      object-fit: cover;
+      border-radius: var(--radius);
+    }
+    .img-accent {
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 180px; height: 180px;
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      opacity: 0.35;
+      z-index: -1;
+    }
+    .about-intro-text .label { margin-bottom: 14px; }
+    .about-intro-text h2 { margin-bottom: 10px; }
+    .about-intro-text p { margin-bottom: 18px; }
+
+    /* Vision card */
+    .vision-card {
+      background: var(--navy);
+      color: white;
+      padding: 36px;
+      border-radius: var(--radius);
+      margin-top: 32px;
+      border-left: 3px solid var(--gold);
+    }
+    .vision-card h4 { color: var(--gold); margin-bottom: 10px; font-family: 'DM Mono', monospace; font-size: 0.76rem; letter-spacing: 0.15em; }
+    .vision-card p { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+
+    /* Values section */
+    .values-section { padding: 100px 0; background: var(--off-white); }
+    .values-big-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 60px;
+    }
+    .value-block {
+      background: #fff;
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--off-white);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .value-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .value-block:hover::before { transform: scaleX(1); }
+    .value-block:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(10,22,40,0.1); }
+    .value-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--off-white);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .value-block h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--navy); }
+    .value-block p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
+
+    /* Team / brand section */
+    .brand-section { padding: 100px 0; }
+    .brand-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .brand-text .label { margin-bottom: 14px; }
+    .brand-text h2 { margin-bottom: 18px; }
+    .brand-text p { margin-bottom: 16px; }
+    .brand-img img {
+      width: 100%; height: 480px;
+      object-fit: cover;
+      border-radius: var(--radius);
+    }
+
+    /* Commitment strip */
+    .commitment-strip {
+      background: var(--navy-mid);
+      padding: 70px 0;
+    }
+    .commitment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      text-align: center;
+    }
+    .commit-item .icon {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
+    .commit-item h4 { color: var(--gold); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; text-transform: none; letter-spacing: 0; }
+    .commit-item p { font-size: 0.86rem; color: rgba(255,255,255,0.55); line-height: 1.8; }
+
+    @media(max-width:768px) {
+      .about-intro-grid, .brand-inner { grid-template-columns: 1fr; }
+      .values-big-grid { grid-template-columns: 1fr; }
+      .commitment-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-intro-img img { height: 320px; }
+    }
+    @media(max-width:1024px) {
+      .values-big-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:info@indiconhealthcare.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        info@indiconhealthcare.com
+      </a>
+      <div class="topbar-right">
+        <a href="https://indiconworld.com" target="_blank">indiconworld.com</a>
+        <span class="unit-tag">A Unit of Indicon World</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="https://indiconhealthcare.com/images/logo.png" alt="Indicon Healthcare" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="divisions.html">Divisions</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>About Us</span>
+      </div>
+      <h1>About <em>Us</em></h1>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT INTRO -->
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro-grid">
+        <div class="about-intro-img fade-up">
+          <div class="img-accent"></div>
+          <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80" alt="Pharmaceutical lab research" />
+        </div>
+        <div class="about-intro-text fade-up">
+          <p class="label">Our Story</p>
+          <h2>Dedicated to <em>Advancing Healthcare</em></h2>
+          <div class="gold-line"></div>
+          <p>At Indicon Healthcare, we are dedicated to advancing healthcare through innovative pharmaceutical solutions. We have consistently strived to improve lives by developing and delivering high-quality medications that make a difference.</p>
+          <p>From the house of Indicon World, our pharmaceutical division operates with the single goal of making quality healthcare accessible to everyone — patients, families, and communities across India and beyond.</p>
+          <div class="vision-card">
+            <h4>Our Vision</h4>
+            <p>To provide accessible and effective healthcare solutions that enhance the well-being of individuals and communities worldwide. We are committed to research, development, and production of pharmaceuticals that meet the highest standards of safety, efficacy, and quality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">What We Stand For</p>
+        <h2>Our Core <em>Values</em></h2>
+        <div class="gold-line" style="margin:14px auto 20px;"></div>
+        <p>Five principles that guide every decision, every product, and every interaction at Indicon Healthcare.</p>
+      </div>
+      <div class="values-big-grid">
+        <div class="value-block fade-up">
+          <div class="value-num">01</div>
+          <h3>Quality</h3>
+          <p>We maintain unwavering standards of quality in every aspect of our operations, from research and development to manufacturing and distribution. No compromise, ever.</p>
+        </div>
+        <div class="value-block fade-up">
+          <div class="value-num">02</div>
+          <h3>Innovation</h3>
+          <p>Embracing pioneering technologies and continuously exploring new ways to address healthcare challenges is our priority. We constantly put efforts to introduce the latest innovations and techniques in our products and manufacturing.</p>
+        </div>
+        <div class="value-block fade-up">
+          <div class="value-num">03</div>
+          <h3>Integrity</h3>
+          <p>We uphold the highest ethical standards in all our interactions and decisions. Transparency and honesty form the bedrock of how we operate.</p>
+        </div>
+        <div class="value-block fade-up">
+          <div class="value-num">04</div>
+          <h3>Collaboration</h3>
+          <p>We foster partnerships with accomplished healthcare professionals, researchers, and organizations to drive meaningful advancements in medicine and patient care.</p>
+        </div>
+        <div class="value-block fade-up">
+          <div class="value-num">05</div>
+          <h3>Patient-Centric</h3>
+          <p>We prioritize the needs and well-being of patients in everything we do. They are our topmost priority — every formulation, every study, every service begins and ends with the patient.</p>
+        </div>
+        <div class="value-block fade-up" style="background:var(--navy);border-color:var(--navy);">
+          <div class="value-num" style="color:rgba(201,168,76,0.15);">✦</div>
+          <h3 style="color:var(--white);">"Care that makes a difference"</h3>
+          <p style="color:rgba(255,255,255,0.55);">Our genuine motto drives everything. From the molecule to the patient's hand — every step is an act of care.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMITMENT STRIP -->
+  <div class="commitment-strip">
+    <div class="container">
+      <div class="commitment-grid">
+        <div class="commit-item fade-up">
+          <div class="icon">🔬</div>
+          <h4>Research-Driven</h4>
+          <p>Our products are backed by rigorous scientific research and clinical evidence to ensure maximum efficacy and safety.</p>
+        </div>
+        <div class="commit-item fade-up">
+          <div class="icon">🌍</div>
+          <h4>Community Focused</h4>
+          <p>We believe in healthcare for all — making our solutions affordable and accessible across communities nationwide.</p>
+        </div>
+        <div class="commit-item fade-up">
+          <div class="icon">🏆</div>
+          <h4>Excellence Always</h4>
+          <p>Every product that leaves our facility meets and exceeds the highest standards set by regulatory authorities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRAND SECTION -->
+  <section class="brand-section">
+    <div class="container">
+      <div class="brand-inner">
+        <div class="brand-text fade-up">
+          <p class="label">Indicon World</p>
+          <h2>From the House of <em>Indicon World</em></h2>
+          <div class="gold-line"></div>
+          <p>Indicon Healthcare Pvt. Ltd. is a proud unit of Indicon World — a group dedicated to building enterprises that impact lives positively across multiple sectors.</p>
+          <p>Headquartered in Indore, Madhya Pradesh, our reach extends across India with a growing network of healthcare professionals, distributors, and partners who share our vision of a healthier world.</p>
+          <div style="margin-top:32px;padding:24px 28px;border:1px solid var(--border);border-radius:var(--radius);background:var(--off-white);">
+            <p class="label" style="margin-bottom:8px;">Registered Office</p>
+            <address style="font-style:normal;color:var(--text);line-height:1.9;font-size:0.9rem;">
+              H.No. 402, A. B. Road, Kishanganj,<br />
+              Indore (M.P) 453441, INDIA<br />
+              <a href="mailto:info@indiconhealthcare.com" style="color:var(--gold);">info@indiconhealthcare.com</a>
+            </address>
+          </div>
+          <div style="margin-top:24px;">
+            <a href="contact.html" class="btn btn-dark">Get In Touch &#8594;</a>
+          </div>
+        </div>
+        <div class="brand-img fade-up">
+          <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&q=80" alt="Modern pharmaceutical facility" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://indiconhealthcare.com/images/logo.png" alt="Indicon Healthcare" />
+          <p>Advancing healthcare through innovative pharmaceutical solutions. A unit of Indicon World.</p>
+          <address>
+            INDICON HEALTHCARE PVT. LTD.<br />
+            H.No. 402, A. B. Road, Kishanganj,<br />
+            Indore (M.P) 453441, INDIA
+          </address>
+          <div style="margin-top:16px;">
+            <div class="footer-newsletter">
+              <p>Sign up for our newsletter</p>
+              <div class="newsletter-form">
+                <input type="email" placeholder="Your email address" />
+                <button>Subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="divisions.html">Divisions</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Opening Hours</h4>
+          <div class="footer-hours">
+            <span class="day">Monday</span><span>10:00 – 20:00</span>
+            <span class="day">Tuesday</span><span>10:00 – 20:00</span>
+            <span class="day">Wednesday</span><span>10:00 – 20:00</span>
+            <span class="day">Thursday</span><span>10:00 – 20:00</span>
+            <span class="day">Friday</span><span>10:00 – 20:00</span>
+            <span class="day">Saturday</span><span>10:00 – 20:00</span>
+            <span class="day">Sunday</span><span>10:00 – 20:00</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@indiconhealthcare.com">info@indiconhealthcare.com</a></li>
+            <li><a href="https://indiconworld.com" target="_blank">indiconworld.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© Copyright 2025 INDICON HEALTHCARE PVT. LTD. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

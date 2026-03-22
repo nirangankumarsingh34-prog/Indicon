@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divisions — INDICON HEALTHCARE PVT. LTD.</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── DIVISIONS PAGE ── */
+
+    /* Featured intro */
+    .div-intro { padding: 80px 0 60px; }
+    .div-intro .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .div-intro-text .label { margin-bottom: 14px; }
+    .div-intro-text h2 { max-width: 480px; }
+    .div-intro-right { max-width: 420px; }
+    .div-intro-right p { color: var(--muted); }
+
+    /* Big product cards */
+    .products-section { padding: 20px 0 100px; }
+    .product-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 2px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .product-row.reverse { direction: rtl; }
+    .product-row.reverse > * { direction: ltr; }
+    .product-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .product-row:hover .product-img img { transform: scale(1.04); }
+    .product-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,22,40,0.55) 0%, transparent 60%);
+    }
+    .product-num {
+      position: absolute;
+      top: 28px; left: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.12);
+      line-height: 1;
+    }
+    .product-body {
+      background: var(--navy);
+      padding: 60px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .product-row:nth-child(even) .product-body { background: var(--navy-soft); }
+    .product-body .label { margin-bottom: 14px; }
+    .product-body h2 { color: var(--white); margin-bottom: 18px; }
+    .product-body p { color: rgba(255,255,255,0.62); margin-bottom: 14px; font-size: 0.94rem; }
+    .product-features {
+      margin: 24px 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .product-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .product-features li::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .product-body .btn-outline { align-self: flex-start; }
+
+    /* Grid extras */
+    .more-section { padding: 60px 0 100px; background: var(--off-white); }
+    .more-section .section-header { margin-bottom: 48px; }
+    .more-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+    }
+    .more-card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--off-white);
+      transition: var(--transition);
+      text-align: center;
+      padding: 48px 32px;
+    }
+    .more-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(10,22,40,0.1); border-color: rgba(201,168,76,0.3); }
+    .more-card .icon { font-size: 2.6rem; margin-bottom: 18px; }
+    .more-card h3 { margin-bottom: 12px; font-size: 1.3rem; }
+    .more-card p { font-size: 0.86rem; color: var(--muted); }
+
+    /* CTA */
+    .div-cta { padding: 80px 0; text-align: center; }
+    .div-cta h2 { margin-bottom: 14px; }
+    .div-cta p { color: var(--muted); max-width: 480px; margin: 0 auto 32px; }
+
+    @media(max-width:900px) {
+      .product-row { grid-template-columns: 1fr; }
+      .product-row.reverse { direction: ltr; }
+      .product-img img { height: 300px; }
+      .product-body { padding: 40px 32px; }
+      .more-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:560px) {
+      .more-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:info@indiconhealthcare.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        info@indiconhealthcare.com
+      </a>
+      <div class="topbar-right">
+        <a href="https://indiconworld.com" target="_blank">indiconworld.com</a>
+        <span class="unit-tag">A Unit of Indicon World</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="https://indiconhealthcare.com/images/logo.png" alt="Indicon Healthcare" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="divisions.html" class="active">Divisions</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>Divisions</span>
+      </div>
+      <h1>Our <em>Divisions</em></h1>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="div-intro">
+    <div class="container">
+      <div class="div-intro-text fade-up">
+        <p class="label">Special High-Quality Products</p>
+        <h2>A Portfolio Built on <em>Science &amp; Care</em></h2>
+      </div>
+      <div class="div-intro-right fade-up">
+        <p>We provide a wide range of product divisions including CNS, Nephroscience, Nutritions and General Medicine — each formulated with the highest pharmaceutical standards to address critical health needs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT ROWS -->
+  <section class="products-section">
+    <div class="container" style="padding:0;max-width:100%;width:100%;">
+
+      <!-- CNS -->
+      <div class="product-row fade-up">
+        <div class="product-img">
+          <img src="https://indiconhealthcare.com/images/Products/cns.webp" alt="CNS Division" />
+          <div class="product-img-overlay"></div>
+          <div class="product-num">01</div>
+        </div>
+        <div class="product-body">
+          <p class="label">Division 01</p>
+          <h2>CNS</h2>
+          <p>Our Central Nervous System division is dedicated to developing precision-engineered therapies for neurological and psychiatric conditions that affect millions.</p>
+          <p>From anxiety and depression to epilepsy and sleep disorders, our CNS portfolio covers a comprehensive range of evidence-backed formulations.</p>
+          <ul class="product-features">
+            <li>Neurological disorder management</li>
+            <li>Psychiatric care formulations</li>
+            <li>Sleep & anxiety solutions</li>
+            <li>Precision-dosed medications</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Enquire Now &#8594;</a>
+        </div>
+      </div>
+
+      <!-- Nephroscience -->
+      <div class="product-row reverse fade-up">
+        <div class="product-img">
+          <img src="https://indiconhealthcare.com/images/Products/nephro.webp" alt="Nephroscience Division" />
+          <div class="product-img-overlay"></div>
+          <div class="product-num">02</div>
+        </div>
+        <div class="product-body">
+          <p class="label">Division 02</p>
+          <h2>Nephroscience</h2>
+          <p>Our Nephroscience division is specifically focused on renal health — providing dedicated solutions to support kidney function and improve the quality of life for patients living with kidney conditions.</p>
+          <p>Developed in collaboration with nephrologists and renal care specialists, our products address a critical and underserved need in Indian healthcare.</p>
+          <ul class="product-features">
+            <li>Renal protection therapies</li>
+            <li>Dialysis support formulations</li>
+            <li>Electrolyte management</li>
+            <li>Specialist-approved protocols</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Enquire Now &#8594;</a>
+        </div>
+      </div>
+
+      <!-- Nutritions -->
+      <div class="product-row fade-up">
+        <div class="product-img">
+          <img src="https://indiconhealthcare.com/images/Products/nutrition.webp" alt="Nutrition Division" />
+          <div class="product-img-overlay"></div>
+          <div class="product-num">03</div>
+        </div>
+        <div class="product-body">
+          <p class="label">Division 03</p>
+          <h2>Nutritions</h2>
+          <p>Science-backed nutritional products designed to promote wellness, strengthen immunity, and support optimal body function at every life stage.</p>
+          <p>Our nutrition range bridges the gap between clinical medicine and preventive healthcare, ensuring bodies have what they need to thrive.</p>
+          <ul class="product-features">
+            <li>Immunity boosters</li>
+            <li>Micronutrient supplements</li>
+            <li>Paediatric nutrition</li>
+            <li>Geriatric wellness formulas</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Enquire Now &#8594;</a>
+        </div>
+      </div>
+
+      <!-- General Medicine -->
+      <div class="product-row reverse fade-up">
+        <div class="product-img">
+          <img src="https://indiconhealthcare.com/images/Products/medicine.webp" alt="General Medicine Division" />
+          <div class="product-img-overlay"></div>
+          <div class="product-num">04</div>
+        </div>
+        <div class="product-body">
+          <p class="label">Division 04</p>
+          <h2>General Medicine</h2>
+          <p>A comprehensive range of essential medicines covering acute and chronic conditions across all demographics — from children to the elderly.</p>
+          <p>Our General Medicine portfolio ensures that fundamental healthcare needs are met with the same uncompromising quality we bring to every division.</p>
+          <ul class="product-features">
+            <li>Acute care medications</li>
+            <li>Chronic disease management</li>
+            <li>OTC and prescription range</li>
+            <li>All age groups covered</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Enquire Now &#8594;</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MORE HIGHLIGHTS -->
+  <section class="more-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">Why Choose Indicon</p>
+        <h2>Quality You Can <em>Trust</em></h2>
+        <div class="gold-line" style="margin:14px auto 20px;"></div>
+      </div>
+      <div class="more-grid">
+        <div class="more-card fade-up">
+          <div class="icon">🔬</div>
+          <h3>Scientifically Formulated</h3>
+          <p>Every product is developed using the latest pharmaceutical research and evidence-based medicine.</p>
+        </div>
+        <div class="more-card fade-up">
+          <div class="icon">✅</div>
+          <h3>Quality Certified</h3>
+          <p>Manufactured under strict quality control protocols meeting all regulatory requirements.</p>
+        </div>
+        <div class="more-card fade-up">
+          <div class="icon">🤝</div>
+          <h3>Doctor Recommended</h3>
+          <p>Trusted and prescribed by healthcare professionals across specialities nationwide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="div-cta">
+    <div class="container">
+      <p class="label" style="margin-bottom:14px;">Partner With Us</p>
+      <h2>Interested in Our <em>Products?</em></h2>
+      <p>Reach out to our team to learn more about our divisions, product range, and distribution opportunities.</p>
+      <a href="contact.html" class="btn btn-dark">Contact Us Today &#8594;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://indiconhealthcare.com/images/logo.png" alt="Indicon Healthcare" />
+          <p>Advancing healthcare through innovative pharmaceutical solutions. A unit of Indicon World.</p>
+          <address>
+            INDICON HEALTHCARE PVT. LTD.<br />
+            H.No. 402, A. B. Road, Kishanganj,<br />
+            Indore (M.P) 453441, INDIA
+          </address>
+          <div style="margin-top:16px;">
+            <div class="footer-newsletter">
+              <p>Sign up for our newsletter</p>
+              <div class="newsletter-form">
+                <input type="email" placeholder="Your email address" />
+                <button>Subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="divisions.html">Divisions</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Opening Hours</h4>
+          <div class="footer-hours">
+            <span class="day">Monday</span><span>10:00 – 20:00</span>
+            <span class="day">Tuesday</span><span>10:00 – 20:00</span>
+            <span class="day">Wednesday</span><span>10:00 – 20:00</span>
+            <span class="day">Thursday</span><span>10:00 – 20:00</span>
+            <span class="day">Friday</span><span>10:00 – 20:00</span>
+            <span class="day">Saturday</span><span>10:00 – 20:00</span>
+            <span class="day">Sunday</span><span>10:00 – 20:00</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@indiconhealthcare.com">info@indiconhealthcare.com</a></li>
+            <li><a href="https://indiconworld.com" target="_blank">indiconworld.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© Copyright 2025 INDICON HEALTHCARE PVT. LTD. All Rights Reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
