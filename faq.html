@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Zynex MM &amp; Exchange</title>
+<style>/* ══════════════════════════════════════
+   ZYNEX MM & EXCHANGE — SHARED STYLES
+══════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --bg:#020812; --bg2:#040f1e; --bg3:#061428;
+  --blue-deep:#001535; --blue-mid:#003080;
+  --blue-accent:#0066ff; --blue-bright:#00aaff;
+  --blue-glow:#00d4ff; --blue-neon:#00f5ff;
+  --text:#e8f4ff; --text-dim:#7ab3d4; --text-muted:#3a6a8a;
+  --border:rgba(0,170,255,0.14); --border-b:rgba(0,212,255,0.38);
+  --card:rgba(0,25,60,0.68); --card2:rgba(0,14,38,0.85);
+  --green:#00ff88; --red:#ff3355; --orange:#ff8c00;
+  --gold:#ffd700;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+*{cursor:none!important;}
+
+/* ── CURSOR ── */
+#ZCO{
+  position:fixed;width:34px;height:34px;
+  border:1.5px solid var(--blue-glow);
+  border-radius:50%;pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s,background .2s,opacity .15s;
+  box-shadow:0 0 14px rgba(0,212,255,.28);
+  will-change:left,top;
+}
+#ZCI{
+  position:fixed;width:5px;height:5px;
+  background:var(--blue-neon);border-radius:50%;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 8px var(--blue-neon),0 0 18px rgba(0,245,255,.45);
+  transition:transform .08s,background .15s;
+  will-change:left,top;
+}
+#ZCT{
+  position:fixed;width:3px;height:3px;
+  background:rgba(0,212,255,.3);border-radius:50%;
+  pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+}
+body.zcH #ZCO{width:50px;height:50px;border-color:var(--blue-neon);background:rgba(0,245,255,.04);}
+body.zcC #ZCI{transform:translate(-50%,-50%) scale(3);}
+body.zcH #ZCI{background:#fff;}
+
+/* ── BASE ── */
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Rajdhani',sans-serif;font-size:16px;line-height:1.65;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.45;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,100,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,100,255,.022) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:1;
+}
+#ZBG{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.zscan{
+  position:fixed;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(0,212,255,.55),transparent);
+  pointer-events:none;z-index:2;
+  animation:zscan 12s linear infinite;
+}
+@keyframes zscan{0%{top:0;opacity:1}90%{opacity:.8}100%{top:100%;opacity:0}}
+.zsite{position:relative;z-index:3;}
+
+/* ── SCAM BAR ── */
+.zscam{
+  background:linear-gradient(90deg,rgba(255,55,0,.1),rgba(255,100,0,.18),rgba(255,55,0,.1));
+  border-bottom:1px solid rgba(255,90,0,.22);
+  text-align:center;padding:7px 20px;
+  font-size:11px;letter-spacing:.6px;color:#ffaa66;
+  animation:zscamanim 4s ease-in-out infinite;
+}
+@keyframes zscamanim{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* ── NAV ── */
+.znav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;height:68px;
+  background:rgba(2,8,18,.94);
+  backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 0 40px rgba(0,70,180,.07);
+}
+.zlogo{display:flex;align-items:center;gap:13px;text-decoration:none;}
+.zlogo-img{
+  width:40px;height:40px;
+  filter:drop-shadow(0 0 10px var(--blue-glow));
+  animation:zlogopulse 3.5s ease-in-out infinite;
+}
+@keyframes zlogopulse{
+  0%,100%{filter:drop-shadow(0 0 10px var(--blue-glow)) drop-shadow(0 0 20px rgba(0,212,255,.3))}
+  50%{filter:drop-shadow(0 0 18px var(--blue-neon)) drop-shadow(0 0 38px rgba(0,245,255,.5))}
+}
+.zlogo-text{font-family:'Orbitron',monospace;font-size:14.5px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:.3px;}
+.zlogo-text em{display:block;font-style:normal;font-size:7.5px;font-weight:400;color:var(--blue-glow);letter-spacing:3.5px;text-transform:uppercase;margin-top:1px;}
+.znav-links{display:flex;align-items:center;gap:26px;list-style:none;}
+.znav-links a{
+  color:var(--text-muted);text-decoration:none;
+  font-size:11.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  transition:color .2s;position:relative;padding-bottom:3px;
+}
+.znav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1px;background:var(--blue-glow);
+  transition:width .28s;box-shadow:0 0 5px var(--blue-glow);
+}
+.znav-links a:hover,.znav-links a.zon{color:var(--blue-glow);}
+.znav-links a:hover::after,.znav-links a.zon::after{width:100%;}
+.znav-dc{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 20px;border-radius:4px;
+  font-family:'Orbitron',monospace;font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-decoration:none;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--blue-accent),var(--blue-bright));
+  color:#fff;box-shadow:0 0 18px rgba(0,102,255,.32);
+  transition:all .28s;white-space:nowrap;
+}
+.znav-dc:hover{box-shadow:0 0 32px rgba(0,170,255,.55);transform:translateY(-1px);}
+.zmob{display:none;background:none;border:none;color:var(--blue-glow);font-size:22px;padding:4px;}
+
+/* ── BUTTONS ── */
+.zbtn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 26px;border-radius:4px;
+  font-family:'Orbitron',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:1.5px;text-decoration:none;text-transform:uppercase;
+  transition:all .28s;border:none;
+}
+.zbtn-p{background:linear-gradient(135deg,var(--blue-accent),var(--blue-bright));color:#fff;box-shadow:0 0 20px rgba(0,102,255,.38);}
+.zbtn-p:hover{box-shadow:0 0 38px rgba(0,170,255,.58);transform:translateY(-1px);}
+.zbtn-o{background:transparent;color:var(--blue-glow);border:1px solid var(--blue-glow);box-shadow:0 0 8px rgba(0,212,255,.1);}
+.zbtn-o:hover{background:rgba(0,212,255,.07);box-shadow:0 0 24px rgba(0,212,255,.28);}
+.zbtn-g{background:rgba(0,100,255,.07);color:var(--text-dim);border:1px solid var(--border);}
+.zbtn-g:hover{border-color:var(--border-b);color:var(--text);}
+.zbtn-r{background:rgba(255,51,85,.1);color:#ff6680;border:1px solid rgba(255,51,85,.25);}
+.zbtn-r:hover{background:rgba(255,51,85,.18);}
+
+/* ── SECTION BASICS ── */
+.zsec{padding:82px 44px;}
+.zinn{max-width:1100px;margin:0 auto;}
+.zinn-sm{max-width:760px;margin:0 auto;}
+.zlabel{
+  font-size:10.5px;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--blue-glow);
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.zlabel::before{content:'';width:26px;height:1px;background:var(--blue-glow);box-shadow:0 0 5px var(--blue-glow);}
+.zh2{font-family:'Orbitron',monospace;font-size:clamp(22px,3vw,36px);font-weight:700;margin-bottom:12px;}
+.zdesc{font-size:15px;color:var(--text-dim);max-width:500px;margin-bottom:48px;line-height:1.7;}
+
+/* ── REVEAL ── */
+.zrev{opacity:0;transform:translateY(26px);transition:opacity .68s ease,transform .68s ease;}
+.zrev.zvis{opacity:1;transform:translateY(0);}
+.zrev:nth-child(2){transition-delay:.08s;}
+.zrev:nth-child(3){transition-delay:.16s;}
+.zrev:nth-child(4){transition-delay:.24s;}
+.zrev:nth-child(5){transition-delay:.32s;}
+.zrev:nth-child(6){transition-delay:.40s;}
+
+/* ── TICKER ── */
+.zticker{overflow:hidden;background:rgba(0,14,38,.8);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:9px 0;}
+.zticker-track{display:flex;gap:52px;animation:ztk 30s linear infinite;width:max-content;}
+.ztick-item{display:flex;align-items:center;gap:10px;white-space:nowrap;font-family:'Orbitron',monospace;font-size:11.5px;letter-spacing:.5px;}
+.ztick-sym{color:var(--blue-glow);font-weight:700;}
+.ztick-val{color:var(--text-dim);}
+.ztick-chg{font-size:10.5px;}
+.ztick-chg.up{color:var(--green);}
+.ztick-chg.dn{color:var(--red);}
+@keyframes ztk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── STATS BAR ── */
+.zstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.zstat{background:var(--bg2);padding:28px 20px;text-align:center;position:relative;overflow:hidden;transition:background .28s;}
+.zstat:hover{background:rgba(0,28,66,.8);}
+.zstat::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:38%;height:1px;background:linear-gradient(90deg,transparent,var(--blue-glow),transparent);}
+.zstat-num{font-family:'Orbitron',monospace;font-size:25px;font-weight:900;color:var(--blue-glow);text-shadow:0 0 20px rgba(0,212,255,.38);display:block;letter-spacing:-1px;}
+.zstat-lbl{font-size:10px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-top:5px;display:block;}
+
+/* ── CARDS ── */
+.zcard{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:28px;transition:all .28s;}
+.zcard:hover{border-color:var(--border-b);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,50,150,.18);}
+.zcard-icon{width:44px;height:44px;background:linear-gradient(135deg,rgba(0,102,255,.18),rgba(0,170,255,.09));border:1px solid rgba(0,170,255,.28);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:16px;}
+.zcard h3{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--text);margin-bottom:9px;letter-spacing:.5px;}
+.zcard p{font-size:13.5px;color:var(--text-dim);line-height:1.7;}
+
+/* ── STEP CARDS ── */
+.zstep{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:34px 26px;position:relative;overflow:hidden;transition:all .38s;}
+.zstep::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue-accent),transparent);opacity:0;transition:opacity .38s;}
+.zstep:hover{border-color:rgba(0,170,255,.28);transform:translateY(-4px);box-shadow:0 20px 46px rgba(0,40,140,.2);}
+.zstep:hover::before{opacity:1;}
+.zstep-num{font-family:'Orbitron',monospace;font-size:44px;font-weight:900;color:rgba(0,170,255,.09);line-height:1;margin-bottom:14px;}
+.zstep h3{font-family:'Orbitron',monospace;font-size:12.5px;font-weight:700;color:var(--blue-bright);margin-bottom:10px;letter-spacing:1px;}
+.zstep p{font-size:14px;color:var(--text-dim);line-height:1.7;}
+
+/* ── TABLE ── */
+.ztbl-wrap{overflow-x:auto;border-radius:9px;border:1px solid var(--border);margin-bottom:6px;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:linear-gradient(135deg,rgba(0,48,116,.58),rgba(0,28,76,.8));}
+thead th{padding:13px 18px;text-align:left;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue-glow);border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{border-bottom:1px solid rgba(0,100,255,.055);transition:background .18s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(0,100,255,.052);}
+tbody td{padding:13px 18px;color:var(--text-dim);white-space:nowrap;}
+tbody td:first-child{color:var(--text);font-weight:600;}
+.zrv{color:#00e5ff!important;font-weight:700!important;font-family:'Orbitron',monospace;font-size:11px!important;}
+.zlive{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--green);}
+.zlive::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:zpulse 2s ease-in-out infinite;}
+@keyframes zpulse{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* ── FAQ ── */
+.zfaq-item{border:1px solid var(--border);border-radius:7px;margin-bottom:10px;overflow:hidden;transition:border-color .28s;}
+.zfaq-item:hover{border-color:rgba(0,170,255,.28);}
+.zfaq-q{padding:18px 22px;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:space-between;gap:14px;user-select:none;background:var(--card2);transition:background .18s;}
+.zfaq-q:hover{background:rgba(0,26,66,.6);}
+.zfaq-arr{font-size:18px;color:var(--blue-glow);transition:transform .28s;flex-shrink:0;}
+.zfaq-item.open .zfaq-arr{transform:rotate(45deg);}
+.zfaq-body{max-height:0;overflow:hidden;transition:max-height .38s ease;}
+.zfaq-item.open .zfaq-body{max-height:320px;}
+.zfaq-ans{padding:0 22px 18px;font-size:14px;color:var(--text-dim);line-height:1.8;background:var(--card2);border-top:1px solid var(--border);}
+
+/* ── CTA BANNER ── */
+.zcta{
+  background:linear-gradient(135deg,rgba(0,48,136,.38),rgba(0,18,68,.6));
+  border:1px solid var(--border-b);border-radius:12px;
+  padding:52px 44px;text-align:center;position:relative;overflow:hidden;
+}
+.zcta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,148,255,.1),transparent 62%);pointer-events:none;}
+.zcta h2{font-size:clamp(20px,3vw,34px);margin-bottom:14px;}
+.zcta p{color:var(--text-dim);max-width:480px;margin:0 auto 30px;font-size:15px;}
+
+/* ── PAGE HERO (inner pages) ── */
+.zpage-hero{padding:64px 0 28px;position:relative;}
+.zpage-hero::before{content:'';position:absolute;top:50%;left:-180px;width:560px;height:360px;background:radial-gradient(ellipse,rgba(0,90,255,.07),transparent 68%);transform:translateY(-50%);pointer-events:none;}
+.zpage-h1{font-family:'Orbitron',monospace;font-size:clamp(24px,4vw,46px);font-weight:900;margin-bottom:14px;line-height:1.1;}
+.zpage-lead{font-size:16px;color:var(--text-dim);max-width:560px;line-height:1.8;margin-bottom:10px;}
+.zbadge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border:1px solid rgba(0,212,255,.26);border-radius:20px;background:rgba(0,212,255,.05);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue-glow);margin-top:14px;}
+.zbadge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);animation:zpulse 2s ease-in-out infinite;}
+.zdivider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:46px 0;}
+
+/* ── FOOTER ── */
+.zfoot{background:linear-gradient(0deg,rgba(0,2,12,1),transparent);border-top:1px solid var(--border);padding:52px 44px 28px;}
+.zfoot-inner{max-width:1100px;margin:0 auto;}
+.zfoot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:38px;padding-bottom:38px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+.zfoot-brand{max-width:270px;}
+.zfoot-brand p{font-size:12.5px;color:var(--text-muted);margin-top:12px;line-height:1.75;}
+.zfoot-col h4{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--blue-glow);margin-bottom:14px;text-transform:uppercase;}
+.zfoot-col ul{list-style:none;}
+.zfoot-col li{margin-bottom:9px;}
+.zfoot-col a{color:var(--text-muted);text-decoration:none;font-size:13.5px;transition:color .2s;}
+.zfoot-col a:hover{color:var(--blue-glow);}
+.zfoot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11.5px;color:var(--text-muted);}
+.zfoot-soc{display:flex;gap:8px;}
+.zfoot-soc a{width:34px;height:34px;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);text-decoration:none;font-size:14px;transition:all .2s;}
+.zfoot-soc a:hover{border-color:var(--border-b);color:var(--blue-glow);}
+
+/* ── ADMIN PANEL ── */
+#zaLogin{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,4,14,.98);backdrop-filter:blur(32px);align-items:center;justify-content:center;}
+#zaLogin.zon{display:flex;}
+.zaLogin-box{background:var(--bg2);border:1px solid rgba(0,200,255,.28);border-radius:12px;padding:46px 40px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 80px rgba(0,100,255,.2);}
+.zaLogin-box h3{font-family:'Orbitron',monospace;font-size:18px;color:var(--blue-glow);margin-bottom:6px;letter-spacing:2px;}
+.zaLogin-box p{font-size:10.5px;color:var(--text-muted);margin-bottom:26px;letter-spacing:1px;}
+.zaLogin-inp{width:100%;background:rgba(0,8,26,.9);border:1px solid rgba(0,100,255,.28);border-radius:6px;padding:13px 16px;color:var(--text);font-size:15px;text-align:center;letter-spacing:3px;outline:none;margin-bottom:14px;font-family:monospace;transition:border-color .2s;}
+.zaLogin-inp:focus{border-color:var(--blue-glow);}
+.zaLogin-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--blue-accent),var(--blue-bright));border:none;border-radius:6px;color:#fff;font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:2px;}
+.zaLogin-err{color:#ff6666;font-size:12px;margin-top:10px;min-height:18px;}
+#zaPanel{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,4,14,.97);backdrop-filter:blur(22px);overflow-y:auto;}
+#zaPanel.zon{display:flex;align-items:flex-start;justify-content:center;padding:36px 18px;}
+.zaPanel-w{width:100%;max-width:940px;background:var(--bg2);border:1px solid rgba(0,200,255,.26);border-radius:12px;overflow:hidden;box-shadow:0 0 90px rgba(0,170,255,.16);}
+.zaPanel-head{background:linear-gradient(135deg,rgba(0,48,118,.8),rgba(0,18,54,.9));padding:20px 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(0,200,255,.18);}
+.zaPanel-head h2{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--blue-glow);letter-spacing:2px;margin:0;}
+.zaPanel-close{width:33px;height:33px;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.25);border-radius:6px;color:#ff6666;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.zaPanel-close:hover{background:rgba(255,60,60,.26);}
+.zaPanel-body{padding:26px;}
+.za-tabs{display:flex;gap:3px;margin-bottom:22px;border-bottom:1px solid var(--border);overflow-x:auto;}
+.za-tab{padding:8px 17px;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:4px 4px 0 0;color:var(--text-muted);border:1px solid transparent;border-bottom:none;transition:all .18s;white-space:nowrap;}
+.za-tab:hover{color:var(--blue-glow);}
+.za-tab.zon{color:var(--blue-glow);background:rgba(0,100,255,.08);border-color:var(--border);border-bottom-color:var(--bg2);}
+.za-sec{display:none;}
+.za-sec.zon{display:block;}
+.za-group{background:rgba(0,12,34,.6);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px;}
+.za-gtitle{font-family:'Orbitron',monospace;font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:var(--blue-bright);text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.za-field{margin-bottom:12px;}
+.za-field label{display:block;font-size:11px;font-weight:600;color:var(--text-dim);margin-bottom:4px;}
+.za-inp{width:100%;background:rgba(0,7,22,.8);border:1px solid rgba(0,100,255,.18);border-radius:4px;padding:8px 11px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:13.5px;outline:none;transition:border-color .18s;}
+.za-inp:focus{border-color:var(--blue-glow);}
+.za-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.za-save{width:100%;padding:12px;background:linear-gradient(135deg,var(--blue-accent),var(--blue-bright));border:none;border-radius:6px;color:#fff;font-family:'Orbitron',monospace;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:5px;transition:all .28s;box-shadow:0 0 16px rgba(0,100,255,.25);}
+.za-save:hover{box-shadow:0 0 30px rgba(0,170,255,.44);transform:translateY(-1px);}
+.za-notice{display:none;padding:10px 13px;background:rgba(0,255,100,.07);border:1px solid rgba(0,255,100,.18);border-radius:4px;color:#4dff91;font-size:12px;font-weight:600;margin-bottom:12px;letter-spacing:.3px;}
+.za-notice.zon{display:block;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .z3col{grid-template-columns:repeat(2,1fr)!important;}
+  .z4col{grid-template-columns:repeat(2,1fr)!important;}
+  .zstats{grid-template-columns:repeat(2,1fr)!important;}
+}
+@media(max-width:700px){
+  .znav{padding:0 18px;}
+  .znav-links{display:none;}
+  .znav-links.zmopen{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(2,8,18,.97);padding:20px;gap:16px;border-bottom:1px solid var(--border);z-index:99;}
+  .zmob{display:block;}
+  .zsec{padding:62px 18px;}
+  .zfoot{padding:38px 18px 22px;}
+  .zfoot-top{flex-direction:column;}
+  .za-2col{grid-template-columns:1fr;}
+  .zcta{padding:36px 22px;}
+  .z3col,.z4col,.zstats{grid-template-columns:1fr!important;}
+}
+
+@media(max-width:700px){.z3col[style*="2fr"]{grid-template-columns:1fr!important;}}
+</style>
+</head>
+<body>
+
+<div id="ZCO"></div><div id="ZCI"></div><div id="ZCT"></div>
+<canvas id="ZBG"></canvas><div class="zscan"></div>
+<div class="zsite">
+<div class="zscam" id="zscamBar">⚠️ WARNING: Scammers may impersonate Zynex MM &amp; Exchange. Only use the official Discord link on this website. Never trade outside official tickets.</div>
+<nav class="znav">
+  <a href="index.html" class="zlogo">
+    <img class="zlogo-img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJnIiB4PSItNTAlIiB5PSItNTAlIiB3aWR0aD0iMjAwJSIgaGVpZ2h0PSIyMDAlIj48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIzIiByZXN1bHQ9ImIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImIiLz48ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz48L2ZlTWVyZ2U+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJ6IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDBhYWZmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBmNWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHRleHQgeD0iNiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXNpemU9IjUwIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSJ1cmwoI3opIiBmaWx0ZXI9InVybCgjZykiPlc8L3RleHQ+PC9zdmc+" alt="Zynex">
+    <div class="zlogo-text">Zynex MM<em>&amp; Exchange</em></div>
+  </a>
+  <ul class="znav-links" id="znl"><li><a href="index.html" class="">Home</a></li>
+<li><a href="rates.html" class="">Rates</a></li>
+<li><a href="about.html" class="">About</a></li>
+<li><a href="rules.html" class="">Rules</a></li>
+<li><a href="terms.html" class="">Terms</a></li>
+<li><a href="faq.html" class="zon">FAQ</a></li>
+<li><a href="contact.html" class="">Contact</a></li></ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://discord.gg/MnWc4d2F76" class="znav-dc" target="_blank"><svg width="14" height="11" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0045.6.9a40 40 0 00-1.8 3.7 54.2 54.2 0 00-16.2 0A38.6 38.6 0 0025.7.9 58.4 58.4 0 0011 5C1.6 18.7-1 32 .3 45.1a59 59 0 0017.9 9.1 42.5 42.5 0 003.7-6 38.4 38.4 0 01-5.8-2.8l1.4-1.1a42 42 0 0036.1 0l1.4 1.1a38 38 0 01-5.9 2.8 42.5 42.5 0 003.7 6.1 58.7 58.7 0 0017.9-9.1C72.2 30 68.5 16.9 60.1 4.9zM23.7 37.3c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.5 0 6.4 3.2 6.4 7.2s-3 7.2-6.4 7.2zm23.6 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.5 0 6.4 3.2 6.4 7.2s-3 7.2-6.4 7.2z"/></svg> Join Discord</a>
+    <button class="zmob" onclick="ztoggleNav()">☰</button>
+  </div>
+</nav>
+
+<section class="zsec">
+  <div class="zinn">
+    <div class="zpage-hero">
+      <div class="zlabel">FAQ</div>
+      <h1 class="zpage-h1">Frequently Asked<br>Questions</h1>
+      <p class="zpage-lead">Everything you need to know before trading on Zynex MM &amp; Exchange. Can't find your answer? Ask in Discord.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:48px;align-items:start;" class="z3col">
+      <div id="zfaqList"><div class="zfaq-item"><div class="zfaq-q">Do you guarantee trades? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">No. Zynex MM &amp; Exchange is a community space. Follow the rules and use the escrow flow to reduce risk. Staff act as coordinators, not counterparties in trades.</div></div></div><div class="zfaq-item"><div class="zfaq-q">Where do I see the latest rates? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Inside Discord. Rates are posted in dedicated channels where trading happens. The rates on this website are indicative only — always confirm before trading.</div></div></div><div class="zfaq-item"><div class="zfaq-q">How do I avoid impersonators? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Only use the official invite link from this website and verify staff roles inside the server. Never trade with anyone who DMs you first without an official ticket.</div></div></div><div class="zfaq-item"><div class="zfaq-q">What assets do you support? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">We support USDT, BTC, ETH, SOL, BNB, TON, and USDC against INR. Additional assets may be available on request — check inside Discord for the current list.</div></div></div><div class="zfaq-item"><div class="zfaq-q">What payment methods are accepted? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Regular INR (UPI/bank transfer), Safe INR (full warranty guaranteed clean funds), and Cash (cardless, in-hand, CDM deposit). Each has different rates — see the Rates page.</div></div></div><div class="zfaq-item"><div class="zfaq-q">Is there a minimum or maximum trade amount? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Minimums and maximums vary by payment method and asset. Check the Rates page for tier breakdowns, or ask in Discord for exact current limits.</div></div></div><div class="zfaq-item"><div class="zfaq-q">How long does a trade take? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Most trades complete within minutes once both sides confirm. Delays can happen during peak hours or if payment proof is slow. Staff can assist in the ticket.</div></div></div><div class="zfaq-item"><div class="zfaq-q">What happens if there's a dispute? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Open a dispute inside your ticket and tag a staff member. Staff will review both sides and the escrow bot logs to reach a resolution. Off-platform trades cannot be disputed.</div></div></div><div class="zfaq-item"><div class="zfaq-q">Can I be blacklisted? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Yes. Fraudulent INR, chargebacks, scamming, or harassment all result in permanent blacklist with no appeal. Blacklisted users lose all in-progress trades and future access.</div></div></div><div class="zfaq-item"><div class="zfaq-q">How do I verify an exchanger is real? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">All verified exchangers have a specific role in the server. Check their role badge inside Discord before confirming any trade. Never accept an unverified exchanger's claim.</div></div></div><div class="zfaq-item"><div class="zfaq-q">Are there any fees? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">The spread between buy and sell rates is how Zynex operates. There are no additional hidden platform fees. The rates shown are the all-in rates.</div></div></div><div class="zfaq-item"><div class="zfaq-q">What is Safe INR? <span class="zfaq-arr">+</span></div><div class="zfaq-body"><div class="zfaq-ans">Safe INR refers to guaranteed clean funds with full warranty — meaning the INR you receive is verified to be dispute-free and legally compliant. It carries a different rate than regular INR.</div></div></div></div>
+      <div>
+        <div class="zcard" style="margin-bottom:18px;">
+          <div class="zcard-icon">💬</div>
+          <h3>Still Have Questions?</h3>
+          <p style="margin-bottom:16px;">The fastest answers are always inside Discord where our staff and community are active daily.</p>
+          <a href="https://discord.gg/MnWc4d2F76" class="zbtn zbtn-p" style="width:100%;justify-content:center;" target="_blank"><svg width="14" height="11" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0045.6.9a40 40 0 00-1.8 3.7 54.2 54.2 0 00-16.2 0A38.6 38.6 0 0025.7.9 58.4 58.4 0 0011 5C1.6 18.7-1 32 .3 45.1a59 59 0 0017.9 9.1 42.5 42.5 0 003.7-6 38.4 38.4 0 01-5.8-2.8l1.4-1.1a42 42 0 0036.1 0l1.4 1.1a38 38 0 01-5.9 2.8 42.5 42.5 0 003.7 6.1 58.7 58.7 0 0017.9-9.1C72.2 30 68.5 16.9 60.1 4.9zM23.7 37.3c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.5 0 6.4 3.2 6.4 7.2s-3 7.2-6.4 7.2zm23.6 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.5 0 6.4 3.2 6.4 7.2s-3 7.2-6.4 7.2z"/></svg> Ask on Discord</a>
+        </div>
+        <div class="zcard" style="margin-bottom:18px;">
+          <div class="zcard-icon">📋</div>
+          <h3>Read the Rules</h3>
+          <p style="margin-bottom:16px;">Understanding the trade rules before your first trade reduces risk and avoids common mistakes.</p>
+          <a href="rules.html" class="zbtn zbtn-o" style="width:100%;justify-content:center;">View Rules →</a>
+        </div>
+        <div class="zcard">
+          <div class="zcard-icon">⚖️</div>
+          <h3>Terms of Service</h3>
+          <p style="margin-bottom:16px;">By trading, you accept our terms. Read them fully before opening your first ticket.</p>
+          <a href="terms.html" class="zbtn zbtn-g" style="width:100%;justify-content:center;">Read Terms →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="zfoot">
+  <div class="zfoot-inner">
+    <div class="zfoot-top">
+      <div class="zfoot-brand">
+        <a href="index.html" class="zlogo" style="display:inline-flex;margin-bottom:4px;">
+          <img class="zlogo-img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJnIiB4PSItNTAlIiB5PSItNTAlIiB3aWR0aD0iMjAwJSIgaGVpZ2h0PSIyMDAlIj48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIzIiByZXN1bHQ9ImIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImIiLz48ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz48L2ZlTWVyZ2U+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJ6IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDBhYWZmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBmNWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHRleHQgeD0iNiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXNpemU9IjUwIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSJ1cmwoI3opIiBmaWx0ZXI9InVybCgjZykiPlc8L3RleHQ+PC9zdmc+" alt="Zynex" style="width:32px;height:32px;">
+          <div class="zlogo-text" style="font-size:13px;">Zynex MM<em>&amp; Exchange</em></div>
+        </a>
+        <p>Staff-managed Discord exchange for Crypto ↔ INR with transparent rules, live rates, and escrow protection.</p>
+      </div>
+      <div class="zfoot-col"><h4>Navigate</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rates.html">Live Rates</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="rules.html">Community Rules</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul></div>
+      <div class="zfoot-col"><h4>Legal</h4><ul>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="rules.html">Trade Rules</a></li>
+      </ul></div>
+      <div class="zfoot-col"><h4>Community</h4><ul>
+        <li><a href="https://discord.gg/MnWc4d2F76" target="_blank">Discord Server</a></li>
+        <li><a href="rates.html">Exchange Rates</a></li>
+        <li><a href="contact.html">Contact / Support</a></li>
+      </ul></div>
+    </div>
+    <div class="zfoot-bot">
+      <span>© 2026 Zynex MM &amp; Exchange — All rights reserved.</span>
+      <div class="zfoot-soc">
+        <a href="https://discord.gg/MnWc4d2F76" target="_blank" title="Discord"><svg width="14" height="11" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0045.6.9a40 40 0 00-1.8 3.7 54.2 54.2 0 00-16.2 0A38.6 38.6 0 0025.7.9 58.4 58.4 0 0011 5C1.6 18.7-1 32 .3 45.1a59 59 0 0017.9 9.1 42.5 42.5 0 003.7-6 38.4 38.4 0 01-5.8-2.8l1.4-1.1a42 42 0 0036.1 0l1.4 1.1a38 38 0 01-5.9 2.8 42.5 42.5 0 003.7 6.1 58.7 58.7 0 0017.9-9.1C72.2 30 68.5 16.9 60.1 4.9zM23.7 37.3c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.5 0 6.4 3.2 6.4 7.2s-3 7.2-6.4 7.2zm23.6 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.5 0 6.4 3.2 6.4 7.2s-3 7.2-6.4 7.2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>/* ═══════════════════════════════════════
+   ZYNEX MM & EXCHANGE — SHARED JS
+   Cursor · Canvas · Reveal · FAQ · Admin
+═══════════════════════════════════════ */
+
+(function(){
+  /* ── CURSOR ── */
+  const co = document.getElementById('ZCO');
+  const ci = document.getElementById('ZCI');
+  const ct = document.getElementById('ZCT');
+  let mx=0, my=0, ox=0, oy=0, tx=0, ty=0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    ci.style.left = mx + 'px'; ci.style.top = my + 'px';
+    if(ct){ ct.style.left = mx + 'px'; ct.style.top = my + 'px'; }
+  });
+
+  (function animCursor(){
+    ox += (mx - ox) * 0.11;
+    oy += (my - oy) * 0.11;
+    co.style.left = ox + 'px';
+    co.style.top  = oy + 'px';
+    requestAnimationFrame(animCursor);
+  })();
+
+  document.addEventListener('mousedown', () => document.body.classList.add('zcC'));
+  document.addEventListener('mouseup',   () => document.body.classList.remove('zcC'));
+
+  function bindHover(sel){
+    document.querySelectorAll(sel).forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('zcH'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('zcH'));
+    });
+  }
+  bindHover('a, button, .zstep, .zcard, .zfaq-q, .za-tab, .zstat, .ztbl-wrap tbody tr, [data-hover]');
+
+  /* ── CANVAS BG ── */
+  const cv = document.getElementById('ZBG');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H, pts = [], raf;
+
+  function resize(){
+    W = cv.width = window.innerWidth;
+    H = cv.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for(let i = 0; i < 110; i++){
+    pts.push({
+      x: Math.random() * 2200, y: Math.random() * 2200,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      r: Math.random() * 1.3 + 0.3,
+      a: Math.random() * 0.42 + 0.1,
+      p: Math.random() * Math.PI * 2
+    });
+  }
+
+  let t = 0;
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+
+    /* deep radial gradient */
+    const g = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H));
+    g.addColorStop(0, 'rgba(0,18,56,.22)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    t += 0.0038;
+
+    /* connection lines */
+    for(let i = 0; i < pts.length; i++){
+      for(let j = i + 1; j < pts.length; j++){
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const d = Math.hypot(dx, dy);
+        if(d < 140){
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0,140,255,${0.055 * (1 - d/140)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* particles */
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.p += 0.016;
+      if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
+      if(p.y < 0) p.y = H; if(p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,195,255,${p.a * (0.6 + 0.4 * Math.sin(p.p))})`;
+      ctx.fill();
+    });
+
+    /* slow hex rings */
+    [[0.1,0.2,220],[0.86,0.28,300],[0.28,0.76,180],[0.7,0.55,250],[0.5,0.1,160]].forEach(([rx,ry,rb], i) => {
+      const cx2 = W * rx, cy2 = H * ry;
+      const r = rb + Math.sin(t + i) * 14;
+      ctx.beginPath(); ctx.arc(cx2, cy2, r, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(0,80,210,${0.022 + 0.008 * Math.sin(t + i)})`;
+      ctx.lineWidth = 1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx2, cy2, r * 0.54, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(0,150,255,${0.014 + 0.006 * Math.sin(t - i)})`;
+      ctx.stroke();
+    });
+
+    /* data streams */
+    for(let i = 0; i < 5; i++){
+      const sx = W / 5 * i + W / 10;
+      const sy = ((t * 62 + i * 240) % (H + 160)) - 80;
+      const gs = ctx.createLinearGradient(sx, sy, sx, sy + 110);
+      gs.addColorStop(0, 'transparent');
+      gs.addColorStop(0.5, 'rgba(0,180,255,.09)');
+      gs.addColorStop(1, 'transparent');
+      ctx.beginPath();
+      ctx.strokeStyle = gs; ctx.lineWidth = 1;
+      ctx.moveTo(sx, sy); ctx.lineTo(sx, sy + 110); ctx.stroke();
+    }
+
+    /* mouse glow */
+    if(mx && my){
+      const mg = ctx.createRadialGradient(mx, my, 0, mx, my, 200);
+      mg.addColorStop(0, 'rgba(0,130,255,.04)');
+      mg.addColorStop(1, 'transparent');
+      ctx.fillStyle = mg; ctx.fillRect(0, 0, W, H);
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  /* ── SCROLL REVEAL ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('zvis'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.zrev').forEach(el => obs.observe(el));
+
+  /* ── FAQ ── */
+  function bindFAQ(){
+    document.querySelectorAll('.zfaq-q').forEach(q => {
+      q.onclick = () => {
+        const item = q.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.zfaq-item').forEach(i => i.classList.remove('open'));
+        if(!wasOpen) item.classList.add('open');
+      };
+    });
+  }
+  bindFAQ();
+
+  /* ── MOBILE NAV ── */
+  window.ztoggleNav = function(){
+    const nl = document.getElementById('znl');
+    if(nl) nl.classList.toggle('zmopen');
+  };
+
+  /* ══════════════════════════
+     ADMIN PANEL SYSTEM
+     Shortcut: Ctrl+Shift+Z
+     Password: Zy$n3x#4dm!N@2026
+  ══════════════════════════ */
+  const Z_PW = 'Zy$n3x#4dm!N@2026';
+  const loginEl  = document.getElementById('zaLogin');
+  const panelEl  = document.getElementById('zaPanel');
+  const pwInpEl  = document.getElementById('zaPwInp');
+  const errEl    = document.getElementById('zaErr');
+  const noticeEl = document.getElementById('zaNotice');
+
+  if(!loginEl || !panelEl) return; /* admin not on this page */
+
+  document.addEventListener('keydown', e => {
+    if(e.ctrlKey && e.shiftKey && e.key === 'Z'){
+      e.preventDefault();
+      loginEl.classList.add('zon');
+      setTimeout(() => pwInpEl && pwInpEl.focus(), 80);
+    }
+    if(e.key === 'Escape'){
+      loginEl.classList.remove('zon');
+      panelEl.classList.remove('zon');
+    }
+  });
+
+  if(pwInpEl) pwInpEl.addEventListener('keydown', e => { if(e.key === 'Enter') window.zaLogin(); });
+
+  window.zaLogin = function(){
+    if(!pwInpEl) return;
+    if(pwInpEl.value === Z_PW){
+      loginEl.classList.remove('zon');
+      panelEl.classList.add('zon');
+      pwInpEl.value = '';
+      if(typeof window.zaLoadFAQ === 'function') window.zaLoadFAQ();
+    } else {
+      if(errEl) errEl.textContent = '✗ Wrong password. Access denied.';
+      pwInpEl.value = '';
+      pwInpEl.style.borderColor = 'rgba(255,60,60,.6)';
+      setTimeout(() => { pwInpEl.style.borderColor = ''; if(errEl) errEl.textContent = ''; }, 2200);
+    }
+  };
+
+  window.zaClose = function(){
+    panelEl.classList.remove('zon');
+  };
+
+  window.zaTab = function(id, el){
+    document.querySelectorAll('.za-sec').forEach(s => s.classList.remove('zon'));
+    document.querySelectorAll('.za-tab').forEach(t => t.classList.remove('zon'));
+    const sec = document.getElementById(id);
+    if(sec) sec.classList.add('zon');
+    el.classList.add('zon');
+  };
+
+  window.zaNotify = function(){
+    if(!noticeEl) return;
+    noticeEl.classList.add('zon');
+    setTimeout(() => noticeEl.classList.remove('zon'), 3000);
+  };
+
+  /* helpers to sync admin inputs → page elements */
+  window.zaSync = function(pairs){
+    pairs.forEach(([aid, bid]) => {
+      const a = document.getElementById(aid), b = document.getElementById(bid);
+      if(a && b) b.textContent = a.value;
+    });
+    window.zaNotify();
+  };
+
+  window.zaHTML = function(pairs){
+    pairs.forEach(([aid, bid]) => {
+      const a = document.getElementById(aid), b = document.getElementById(bid);
+      if(a && b) b.innerHTML = a.value;
+    });
+    window.zaNotify();
+  };
+
+  /* ── FAQ EDITOR (admin) ── */
+  let zaFaqData = [];
+
+  window.zaLoadFAQ = function(){
+    zaFaqData = Array.from(document.querySelectorAll('#zfaqList .zfaq-item')).map(el => ({
+      q: el.querySelector('.zfaq-q')?.childNodes[0]?.textContent?.trim() || '',
+      a: el.querySelector('.zfaq-ans')?.textContent?.trim() || ''
+    }));
+    renderFaqEditor();
+  };
+
+  function renderFaqEditor(){
+    const ed = document.getElementById('zaFaqEd');
+    if(!ed) return;
+    ed.innerHTML = zaFaqData.map((it, i) => `
+      <div class="za-group" style="margin-bottom:10px;padding:14px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-family:Orbitron,monospace;font-size:10px;color:var(--blue-glow);font-weight:700;">FAQ #${i+1}</span>
+          <button onclick="zaRemFaq(${i})" style="background:rgba(255,50,50,.1);border:1px solid rgba(255,50,50,.2);border-radius:3px;color:#ff8888;padding:3px 10px;font-size:10px;">Remove</button>
+        </div>
+        <div class="za-field"><label>Question</label><input class="za-inp" id="zfq${i}" value="${it.q.replace(/"/g,'&quot;')}"></div>
+        <div class="za-field"><label>Answer</label><input class="za-inp" id="zfa${i}" value="${it.a.replace(/"/g,'&quot;')}"></div>
+      </div>`).join('');
+  }
+
+  window.zaAddFaq = function(){
+    zaFaqData.push({ q: 'New Question', a: 'New Answer' });
+    renderFaqEditor();
+  };
+
+  window.zaRemFaq = function(i){
+    zaFaqData.splice(i, 1);
+    renderFaqEditor();
+  };
+
+  window.zaSaveFaq = function(){
+    zaFaqData = zaFaqData.map((_, i) => ({
+      q: document.getElementById('zfq'+i)?.value || '',
+      a: document.getElementById('zfa'+i)?.value || ''
+    }));
+    const list = document.getElementById('zfaqList');
+    if(!list) return;
+    list.innerHTML = zaFaqData.map(it =>
+      `<div class="zfaq-item">
+        <div class="zfaq-q">${it.q} <span class="zfaq-arr">+</span></div>
+        <div class="zfaq-body"><div class="zfaq-ans">${it.a}</div></div>
+      </div>`).join('');
+    bindFAQ();
+    window.zaNotify();
+  };
+
+})();
+</script>
+</body>
+</html>
